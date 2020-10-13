@@ -1,21 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { Audio } from 'expo-av';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Pressable,
+} from 'react-native';
 
-export default function App() {
+const soundObject = new Audio.Sound();
+
+async function playSound()  {
+  try {
+    const { sound: soundObject, status } = await Audio.Sound.createAsync(
+      require('./assets/sound.mp3'),
+      { shouldPlay: true }
+    );
+  } catch (error) {}
+}
+
+
+
+const Regi = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <View style={style.container}>
+      <Pressable onPress={playSound}>
+    <Image
+     source={require('./assets/img.png')}
+    />
+    </Pressable>
+    </View>     
   );
 }
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
   },
 });
+
+export default Regi;
+
